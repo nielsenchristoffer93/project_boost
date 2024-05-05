@@ -1,0 +1,162 @@
+[gd_scene load_steps=23 format=3 uid="uid://byr2jkqdlkb3i"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_yshgh"]
+[ext_resource type="AudioStream" uid="uid://dtqpmvp024mdc" path="res://assets/audio/SFX - Death Explosion.ogg" id="2_anm5t"]
+[ext_resource type="Material" uid="uid://3u5fhia2gkfn" path="res://assets/materials/white_material.tres" id="2_ih761"]
+[ext_resource type="AudioStream" uid="uid://bjicg1o52o2lr" path="res://assets/audio/SFX - Success.ogg" id="3_4sc1a"]
+[ext_resource type="Material" uid="uid://cmnqctoimw628" path="res://assets/materials/black_material.tres" id="3_7h1k5"]
+[ext_resource type="AudioStream" uid="uid://clc6u3ea6k8y1" path="res://assets/audio/SFX - Main engine thrust.ogg" id="4_i2rjo"]
+[ext_resource type="Material" uid="uid://xxrnbj4veer0" path="res://assets/materials/red_material.tres" id="4_rpmlc"]
+[ext_resource type="Material" uid="uid://dtaqrgg5a3ai1" path="res://assets/materials/grey_material.tres" id="5_5ml7y"]
+[ext_resource type="PackedScene" uid="uid://ux6ivcx1ovdp" path="res://scenes/booster_particles.tscn" id="5_m7ymq"]
+[ext_resource type="PackedScene" path="res://scenes/explosion_particles.tscn" id="6_nokmd"]
+[ext_resource type="PackedScene" path="res://scenes/success_particles.tscn" id="7_e3ogp"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_b0buu"]
+top_radius = 0.2
+bottom_radius = 0.2
+height = 1.4
+
+[sub_resource type="SphereMesh" id="SphereMesh_qc38p"]
+radius = 0.2
+height = 0.4
+is_hemisphere = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_s4kwq"]
+radius = 0.15
+height = 0.3
+is_hemisphere = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_puroo"]
+top_radius = 0.15
+bottom_radius = 0.15
+height = 1.1
+
+[sub_resource type="SphereMesh" id="SphereMesh_l2pmt"]
+radius = 0.15
+height = 0.3
+is_hemisphere = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7ruyo"]
+top_radius = 0.15
+bottom_radius = 0.15
+height = 1.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_37icu"]
+top_radius = 0.05
+bottom_radius = 0.1
+height = 0.15
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6m1vl"]
+top_radius = 0.05
+bottom_radius = 0.1
+height = 0.15
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_bce5a"]
+top_radius = 0.05
+bottom_radius = 0.1
+height = 0.15
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_g18p6"]
+top_radius = 0.08
+bottom_radius = 0.08
+height = 0.07
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_oitpr"]
+
+[node name="Player" type="RigidBody3D"]
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+max_contacts_reported = 10
+contact_monitor = true
+linear_damp = 1.0
+angular_damp = 3.0
+script = ExtResource("1_yshgh")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08, 0)
+material_override = ExtResource("2_ih761")
+mesh = SubResource("CylinderMesh_b0buu")
+
+[node name="Cockpit" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.68, 0)
+material_override = ExtResource("3_7h1k5")
+mesh = SubResource("SphereMesh_qc38p")
+skeleton = NodePath("../..")
+
+[node name="TopRightFuelTank" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0.28, 0)
+material_override = ExtResource("3_7h1k5")
+mesh = SubResource("SphereMesh_s4kwq")
+skeleton = NodePath("../..")
+
+[node name="RightFuelTank" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, -0.26, 0)
+material_override = ExtResource("2_ih761")
+mesh = SubResource("CylinderMesh_puroo")
+skeleton = NodePath("../..")
+
+[node name="TopLeftFuelTank" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, 0.28, 0)
+material_override = ExtResource("3_7h1k5")
+mesh = SubResource("SphereMesh_l2pmt")
+skeleton = NodePath("../..")
+
+[node name="LeftFuelTank" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, -0.26, 0)
+material_override = ExtResource("2_ih761")
+mesh = SubResource("CylinderMesh_7ruyo")
+skeleton = NodePath("../TopLeftFuelTank")
+
+[node name="LeftFuelLauncher" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, -0.845, 0)
+material_override = ExtResource("4_rpmlc")
+mesh = SubResource("CylinderMesh_37icu")
+skeleton = NodePath("../..")
+
+[node name="RightFuelLauncher" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, -0.845, 0)
+material_override = ExtResource("4_rpmlc")
+mesh = SubResource("CylinderMesh_6m1vl")
+skeleton = NodePath("../..")
+
+[node name="CenterFuelLauncher" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.845, 0)
+material_override = ExtResource("5_5ml7y")
+mesh = SubResource("CylinderMesh_bce5a")
+skeleton = NodePath("../..")
+
+[node name="CenterFuelLauncher2" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.734687, 0)
+material_override = ExtResource("5_5ml7y")
+mesh = SubResource("CylinderMesh_g18p6")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_oitpr")
+
+[node name="ExplosionAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_anm5t")
+
+[node name="SuccessAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_4sc1a")
+
+[node name="RocketAudio" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+stream = ExtResource("4_i2rjo")
+
+[node name="BoosterParticles" parent="." instance=ExtResource("5_m7ymq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="RightBoosterParticles" parent="." instance=ExtResource("5_m7ymq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, -1, 0)
+
+[node name="LeftBoosterParticles" parent="." instance=ExtResource("5_m7ymq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, -1, 0)
+
+[node name="ExplosionParticles" parent="." instance=ExtResource("6_nokmd")]
+
+[node name="SuccessParticles" parent="." instance=ExtResource("7_e3ogp")]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

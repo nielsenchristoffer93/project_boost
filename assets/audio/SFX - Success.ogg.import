@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bjicg1o52o2lr"
+path="res://.godot/imported/SFX - Success.ogg-fe290b2828948b9ccd06810a26b1a8f3.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/SFX - Success.ogg"
+dest_files=["res://.godot/imported/SFX - Success.ogg-fe290b2828948b9ccd06810a26b1a8f3.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
